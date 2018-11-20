@@ -1,0 +1,23 @@
+1.进入elk容器提交代码，/sample-template.json文件要先建好
+/opt/logstash/bin/logstash -e 'input
+{
+  rabbitmq
+  {
+    host => 172.17.0.3
+    exchange => stock_price
+    exchange_type => fanout
+    exclusive => true 
+    queue => random_queue
+  }
+}
+output 
+{
+  elasticsearch 
+  {
+    hosts => ["localhost"]
+    index => "stock_price-%{+YYYY.MM.dd}"
+    document_type => "tick-price"
+    template => "/sample-template.json"
+    template_name => "stock_price-*"
+  }
+}'
