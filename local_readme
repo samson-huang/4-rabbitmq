@@ -3,6 +3,7 @@
 {
   rabbitmq
   {
+    #rabbimq容器IP地址需要固定
     host => 172.17.0.3
     exchange => stock_price
     exchange_type => fanout
